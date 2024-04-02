@@ -1,0 +1,10 @@
+insert into authors (name, nationality) values ('Christel Stansall', 'Dari');
+insert into authors (name, nationality) values ('Aksel Dmiterko', 'Punjabi');
+insert into authors (name, nationality) values ('Chadwick Rennicks', 'Khmer');
+insert into authors (name, nationality) values ('Waldon Elves', 'Marathi');
+insert into authors (name, nationality) values ('Erica Carreyette', 'Tok Pisin');
+insert into authors (name, nationality) values ('Noami Wallicker', 'Armenian');
+insert into authors (name, nationality) values ('Helenka Chamberlayne', 'Irish Gaelic');
+insert into authors (name, nationality) values ('Anne-corinne Instrell', 'Dari');
+insert into authors (name, nationality) values ('Anallese Markie', 'New Zealand Sign Language');
+insert into authors (name, nationality) values ('Petrina Simkovitz', 'Catalan');
