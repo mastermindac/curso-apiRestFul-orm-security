@@ -1,12 +1,11 @@
 from fastapi import APIRouter
+from api import categorycontroller
 
 #Enrutador donde se definen los endpoints
 router = APIRouter()
-
-
 @router.get("/")
 async def read_categories():
-    return {"msg":"GET CATEGORIES"}
+    return categorycontroller.get_categories()
 
 @router.post("/")
 async def write_category():
