@@ -3,6 +3,11 @@ from api.database.database import engine, get_db, SessionLocal
 # Configuracion de la documentacion
 from api.configdoc import tags_metadata
 
+#Modelos DB
+from api.models.categorymodel import Category as CategoryModel
+#Schemas Pydantic
+from api.schemas.categoryschema import Category as CategorySchema
+
 # Controladores
 from api.controllers import categorycontroller
 

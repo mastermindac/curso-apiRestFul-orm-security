@@ -1,12 +1,14 @@
 from fastapi import Depends , APIRouter
 from sqlalchemy.orm import Session
 from api import categorycontroller,get_db
+from api import CategorySchema
 
 #Enrutador donde se definen los endpoints
 router = APIRouter()
-@router.get("/")
+@router.get("/", response_model=list[CategorySchema])
 async def read_categories(db: Session = Depends(get_db)):
-    return categorycontroller.get_categories(db)
+    categories=categorycontroller.get_categories(db)
+    return categories
 
 @router.post("/")
 async def write_category(db: Session = Depends(get_db)):
