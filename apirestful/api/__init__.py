@@ -14,5 +14,8 @@ from api.controllers import categorycontroller
 # Rutas
 from api.routers.categories import router as categoriesrouter
 
+# App
+from api.main import app
+
 
 
