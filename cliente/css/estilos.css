@@ -1,0 +1,29 @@
+nav{
+    background-color: #F57460;
+    height: 10vh;
+}
+
+#contenido-principal{
+    background-color: #ef8d8d;
+    height: 100vh;
+    padding-top: 10vh;
+}
+
+#columna-lateral-izqda{
+    height: 90vh;
+}
+
+#contenido-central{
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 10px;
+    row-gap: 10px;
+}
+
+.card{
+    background-color: #ef8d8d;
+}
+
+.card-body{
+    background-color: #ffffff;
+}
