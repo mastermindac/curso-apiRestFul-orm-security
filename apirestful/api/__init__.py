@@ -7,6 +7,7 @@ from api.configdoc import tags_metadata
 from api.models.categorymodel import Category as CategoryModel
 #Schemas Pydantic
 from api.schemas.categoryschema import Category as CategorySchema
+from api.schemas.categoryschema import CategoryCreate as CategoryCreateSchema
 
 # Controladores
 from api.controllers import categorycontroller
