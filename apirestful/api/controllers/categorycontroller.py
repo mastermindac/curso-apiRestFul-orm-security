@@ -11,6 +11,11 @@ def get_categories(db):
     categories=result.all()
     return categories
 
+def get_category(db, cat_id:int):
+    #Select del modelo ORM
+    categoryModel = db.execute(select(CategoryModel).filter_by(id=cat_id)).scalar_one()
+    return categoryModel
+
 def write_category(db, category: CategoryCreateSchema):
     #Crearemos el modelo ORM a partir del Schema
     categoryModel = CategoryModel(name=category.name)
@@ -30,3 +35,10 @@ def update_category(db, cat_id:int,category: CategoryCreateSchema):
     db.commit()
     db.refresh(categoryModel)
     return categoryModel
+
+def delete_category(db,cat_id:int,):
+    #Select del modelo ORM
+    category= db.get(CategoryModel,cat_id)
+    db.delete(category)
+    db.commit()
+    return get_categories(db)
