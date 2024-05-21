@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from api import categoriesrouter
+from api import categoriesrouter, podcastsrouter, authorsrouter
 from api import tags_metadata
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -37,6 +37,16 @@ app.include_router(
     categoriesrouter,
     tags=["categories"],
     prefix="/categories")
+
+app.include_router(
+    podcastsrouter,
+    tags=["podcasts"],
+    prefix="/podcasts")
+
+app.include_router(
+    authorsrouter,
+    tags=["authors"],
+    prefix="/authors")
 
 @app.get("/")
 async def root():
