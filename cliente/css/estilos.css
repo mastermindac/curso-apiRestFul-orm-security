@@ -1,18 +1,35 @@
+@font-face {
+    font-family: denimInk;
+    src: local("Denim INK WD Regular");
+}
+body{
+    font-family: denimInk;
+}
 nav{
-    background-color: #F57460;
+    background-color: #F04140;
     height: 10vh;
 }
 
+.nav-item{
+    font-family: denimInk;
+}
+
 #contenido-principal{
-    background-color: #ef8d8d;
     height: 100vh;
     padding-top: 10vh;
 }
 
 #columna-lateral-izqda{
+    background-color: #ef8d8d;
     height: 90vh;
 }
 
+.btn-check:checked+.btn{
+    background-color: #F04140;
+}
+.btn-group-vertical .btn{
+    background-color: #FFFFFF;
+}
 #contenido-central{
     display: flex;
     flex-wrap: wrap;
@@ -26,4 +43,9 @@ nav{
 
 .card-body{
     background-color: #ffffff;
+}
+
+.card-text{
+    font-family: denimInk;
+    font-size: 18px;
 }
