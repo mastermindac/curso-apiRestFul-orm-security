@@ -6,6 +6,7 @@ class PodcastBase(BaseModel):
     title: str
     description: str
     url: str
+    category_id: int
 
 class PodcastCreate(PodcastBase):
     pass

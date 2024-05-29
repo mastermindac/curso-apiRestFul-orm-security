@@ -4,6 +4,7 @@ from api.database.database import engine, get_db, SessionLocal
 from api.configdoc import tags_metadata
 
 # Modelos DB
+from api.database.database import Base
 from api.models.categorymodel import Category as CategoryModel
 from api.models.podcastmodel import Podcast as PodcastModel
 from api.models.authormodel import Author as AuthorModel
