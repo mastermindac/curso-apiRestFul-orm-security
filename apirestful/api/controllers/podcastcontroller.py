@@ -29,7 +29,7 @@ def get_podcast(db, podcast_id: int):
 
 def write_podcast(db, podcast: PodcastCreateSchema):
     # Crearemos el modelo ORM a partir del Schema
-    podcastModel = PodcastModel(title=podcast.title, description=podcast.description, url=podcast.url)
+    podcastModel = PodcastModel(title=podcast.title, description=podcast.description , url=podcast.url, category_id=podcast.category_id)
     # Insertamos en la DB
     db.add(podcastModel)
     # Commit

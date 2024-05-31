@@ -50,4 +50,6 @@ async def delete_category(cat_id: int, db: Session = Depends(get_db)):
     categories = categorycontroller.delete_category(db, cat_id)
     if categories == None:
         raise HTTPException(status_code=404, detail="Category not found")
+    elif categories == -1:
+        raise HTTPException(status_code=404, detail="Podcasts not empty")
     return categories

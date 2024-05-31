@@ -15,4 +15,4 @@ class Category(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str]
     #Relacion One-To-Many podcasts
-    podcasts: Mapped[List["Podcast"]] = relationship()
+    podcasts: Mapped[List["Podcast"]] = relationship("Podcast", cascade="all, delete-orphan")

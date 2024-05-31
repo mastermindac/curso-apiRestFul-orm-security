@@ -1,7 +1,7 @@
 from sqlalchemy import select
 from api import CategoryModel
 from api import CategoryCreateSchema
-from sqlalchemy.exc import NoResultFound, OperationalError
+from sqlalchemy.exc import NoResultFound, OperationalError, IntegrityError
 from sqlalchemy.orm.exc import UnmappedInstanceError
 
 
