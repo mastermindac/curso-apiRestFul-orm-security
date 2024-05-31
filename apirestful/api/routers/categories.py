@@ -1,7 +1,7 @@
 from fastapi import Depends, APIRouter, HTTPException
 from sqlalchemy.orm import Session
 from api import categorycontroller, get_db
-from api import CategorySchema, CategoryCreateSchema
+from api import CategorySchema, CategoryCreateSchema, CategoryPodcastsSchema
 
 # Enrutador donde se definen los endpoints
 router = APIRouter()
@@ -17,6 +17,14 @@ async def read_categories(db: Session = Depends(get_db)):
 
 @router.get("/{cat_id}", response_model=CategorySchema)
 async def read_category(cat_id: int, db: Session = Depends(get_db)):
+    category = categorycontroller.get_category(db, cat_id)
+    if category == None:
+        raise HTTPException(status_code=404, detail="Category not found")
+    return category
+
+
+@router.get("/{cat_id}/podcasts", response_model=CategoryPodcastsSchema)
+async def read_categorypodcasts(cat_id: int, db: Session = Depends(get_db)):
     category = categorycontroller.get_category(db, cat_id)
     if category == None:
         raise HTTPException(status_code=404, detail="Category not found")
