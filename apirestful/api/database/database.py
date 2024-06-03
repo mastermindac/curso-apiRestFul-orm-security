@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, Column, ForeignKey, Table
 from sqlalchemy.orm import sessionmaker, DeclarativeBase
 
 # Creacion del Engine contra la BBDD
@@ -11,6 +11,14 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 # declarative base class
 class Base(DeclarativeBase):
     pass
+
+#Tabla asociacion entre podcasts y  author
+podcast_authors= Table(
+    "podcast_authors",
+    Base.metadata,
+    Column("podcast_id", ForeignKey("podcasts.id"), primary_key=True),
+    Column("author_id", ForeignKey("authors.id"), primary_key=True),
+)
 
 
 # Dependency

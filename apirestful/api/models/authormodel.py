@@ -1,12 +1,11 @@
+from typing import List
+
 from sqlalchemy import Integer, String, ForeignKey
-from sqlalchemy.orm import DeclarativeBase
-from sqlalchemy.orm import Mapped
+from sqlalchemy.orm import Mapped, relationship
 from sqlalchemy.orm import mapped_column
 
+from api import Base, podcast_authors
 
-# declarative base class
-class Base(DeclarativeBase):
-    pass
 
 
 # Modelo Podcast
@@ -16,3 +15,6 @@ class Author(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str]
     nationality: Mapped[str]
+    podcasts: Mapped[List["Podcast"]] = relationship(
+        secondary=podcast_authors, back_populates="authors"
+    )
