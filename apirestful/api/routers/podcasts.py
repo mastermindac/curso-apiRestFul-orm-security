@@ -1,7 +1,7 @@
 from fastapi import Depends, APIRouter, HTTPException
 from sqlalchemy.orm import Session
 from api import podcastcontroller, get_db
-from api import PodcastSchema, PodcastCreateSchema, PodcastUpdateSchema
+from api import PodcastSchema, PodcastCreateSchema, PodcastUpdateSchema, PodcastAuthorsSchema
 
 # Enrutador donde se definen los endpoints
 router = APIRouter()
@@ -17,6 +17,14 @@ async def read_podcast(db: Session = Depends(get_db)):
 
 @router.get("/{podcast_id}", response_model=PodcastSchema)
 async def read_podcast(podcast_id: int, db: Session = Depends(get_db)):
+    podcast = podcastcontroller.get_podcast(db, podcast_id)
+    if podcast == None:
+        raise HTTPException(status_code=404, detail="Podcast not found")
+    return podcast
+
+
+@router.get("/{podcast_id}/authors", response_model=PodcastAuthorsSchema)
+async def read_podcast_authors(podcast_id: int, db: Session = Depends(get_db)):
     podcast = podcastcontroller.get_podcast(db, podcast_id)
     if podcast == None:
         raise HTTPException(status_code=404, detail="Podcast not found")

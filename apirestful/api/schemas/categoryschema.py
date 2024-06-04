@@ -4,17 +4,20 @@ from pydantic import BaseModel
 from api import PodcastSchema
 
 
-#Schemas de Categoria
-class CategoryBase(BaseModel):
+# Schemas de Categoria
+class CategoryBaseSchema(BaseModel):
     name: str
 
-class CategoryCreate(CategoryBase):
+
+class CategoryCreateSchema(CategoryBaseSchema):
     pass
 
-class Category(CategoryBase):
+
+class CategorySchema(CategoryBaseSchema):
     id: int
 
-class CategoryPodcasts(CategoryBase):
+
+class CategoryPodcastsSchema(CategoryBaseSchema):
     id: int
     podcasts: List[PodcastSchema]
 

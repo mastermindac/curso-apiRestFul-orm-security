@@ -1,7 +1,7 @@
 from fastapi import Depends, APIRouter, HTTPException
 from sqlalchemy.orm import Session
 from api import authorcontroller, get_db
-from api import AuthorSchema, AuthorCreateSchema, AuthorUpdateSchema
+from api import AuthorSchema, AuthorCreateSchema, AuthorUpdateSchema, AuthorPodcastsSchema
 
 # Enrutador donde se definen los endpoints
 router = APIRouter()
@@ -17,6 +17,14 @@ async def read_author(db: Session = Depends(get_db)):
 
 @router.get("/{author_id}", response_model=AuthorSchema)
 async def read_author(author_id: int, db: Session = Depends(get_db)):
+    author = authorcontroller.get_author(db, author_id)
+    if author == None:
+        raise HTTPException(status_code=404, detail="Author not found")
+    return author
+
+
+@router.get("/{author_id}/podcasts", response_model=AuthorPodcastsSchema)
+async def read_author_podcasts(author_id: int, db: Session = Depends(get_db)):
     author = authorcontroller.get_author(db, author_id)
     if author == None:
         raise HTTPException(status_code=404, detail="Author not found")

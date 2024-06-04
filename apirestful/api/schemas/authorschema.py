@@ -1,19 +1,23 @@
 from typing import Union
 from pydantic import BaseModel
 
-#Schemas de Podcasts
-class AuthorBase(BaseModel):
+
+# Schemas de Podcasts
+class AuthorBaseSchema(BaseModel):
     name: str
     nationality: str
 
-class AuthorCreate(AuthorBase):
+
+class AuthorCreateSchema(AuthorBaseSchema):
     pass
 
-class AuthorUpdate(BaseModel):
+
+class AuthorUpdateSchema(BaseModel):
     name: Union[str, None] = None
     nationality: Union[str, None] = None
 
-class Author(AuthorBase):
+
+class AuthorSchema(AuthorBaseSchema):
     id: int
 
     class Config:
