@@ -12,7 +12,7 @@ from api.models.authormodel import Author as AuthorModel
 
 # Schemas Pydantic
 from api.schemas.authorschema import AuthorSchema, AuthorCreateSchema, AuthorUpdateSchema
-from api.schemas.podcastschema import PodcastSchema, PodcastCreateSchema, PodcastUpdateSchema
+from api.schemas.podcastschema import PodcastSchema, PodcastCreateSchema, PodcastUpdateSchema, PodcastAuthorCreateSchema
 from api.schemas.podcastschema import PodcastAuthorsSchema, AuthorPodcastsSchema
 from api.schemas.categoryschema import CategorySchema, CategoryPodcastsSchema, CategoryCreateSchema
 

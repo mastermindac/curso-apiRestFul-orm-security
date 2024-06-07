@@ -1,6 +1,6 @@
 from sqlalchemy import select
-from api import PodcastModel, PodcastCreateSchema, PodcastUpdateSchema
-from sqlalchemy.exc import NoResultFound, OperationalError
+from api import PodcastModel, PodcastCreateSchema, PodcastUpdateSchema, AuthorModel, PodcastAuthorCreateSchema
+from sqlalchemy.exc import NoResultFound, OperationalError, IntegrityError
 from sqlalchemy.orm.exc import UnmappedInstanceError
 
 
@@ -29,12 +29,33 @@ def get_podcast(db, podcast_id: int):
 
 def write_podcast(db, podcast: PodcastCreateSchema):
     # Crearemos el modelo ORM a partir del Schema
-    podcastModel = PodcastModel(title=podcast.title, description=podcast.description , url=podcast.url, category_id=podcast.category_id)
+    podcastModel = PodcastModel(title=podcast.title, description=podcast.description, url=podcast.url,
+                                category_id=podcast.category_id)
+    # Recorremos todos los authors si existen y los añadimos
+    for author in podcast.authors:
+        authorModel = db.query(AuthorModel).filter(AuthorModel.id == author.id).first()
+        podcastModel.authors.append(authorModel)
     # Insertamos en la DB
     db.add(podcastModel)
     # Commit
     db.commit()
     db.refresh(podcastModel)
+    return podcastModel
+
+
+def write_podcastauthors(db, podcast_id: int, podcast: PodcastAuthorCreateSchema):
+    try:
+        # Buscamos el podcast
+        podcastModel = db.query(PodcastModel).filter(PodcastModel.id == podcast_id).first()
+        # Recorremos todos los authors si existen y los añadimos
+        for author in podcast.authors:
+            authorModel = db.query(AuthorModel).filter(AuthorModel.id == author.id).first()
+            podcastModel.authors.append(authorModel)
+        # Commit
+        db.commit()
+        db.refresh(podcastModel)
+    except IntegrityError:
+        podcastModel = None
     return podcastModel
 
 
@@ -55,7 +76,7 @@ def update_podcast(db, podcast_id: int, podcast: PodcastUpdateSchema):
     return podcastModel
 
 
-def delete_podcast(db, podcast_id: int, ):
+def delete_podcast(db, podcast_id: int):
     try:
         # Select del modelo ORM
         podcast = db.get(PodcastModel, podcast_id)
@@ -65,3 +86,21 @@ def delete_podcast(db, podcast_id: int, ):
     except UnmappedInstanceError:
         podcasts = None
     return podcasts
+
+
+def delete_podcastauthors(db, podcast_id: int, podcast: PodcastAuthorCreateSchema):
+    try:
+        # Buscamos el podcast
+        podcastModel = db.query(PodcastModel).filter(PodcastModel.id == podcast_id).first()
+        # Recorremos todos los authors si existen y los añadimos
+        for author in podcast.authors:
+            authorModel = db.query(AuthorModel).filter(AuthorModel.id == author.id).first()
+            podcastModel.authors.remove(authorModel)
+        # Commit
+        db.commit()
+        db.refresh(podcastModel)
+    except UnmappedInstanceError:
+        podcastModel = None
+    except ValueError:
+        podcastModel = None
+    return podcastModel

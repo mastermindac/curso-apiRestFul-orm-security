@@ -10,10 +10,6 @@ class PodcastBaseSchema(BaseModel):
     category_id: int
 
 
-class PodcastCreateSchema(PodcastBaseSchema):
-    pass
-
-
 class PodcastUpdateSchema(BaseModel):
     title: Union[str, None] = None
     description: Union[str, None] = None
@@ -27,10 +23,21 @@ class PodcastSchema(PodcastBaseSchema):
         orm_mode = True
 
 
-class Author(BaseModel):
+class AuthorBase(BaseModel):
     id: int
+
+
+class Author(AuthorBase):
     name: str
     nationality: str
+
+
+class PodcastAuthorCreateSchema(BaseModel):
+    authors: List[AuthorBase]
+
+
+class PodcastCreateSchema(PodcastBaseSchema):
+    authors: List[AuthorBase]
 
 
 class PodcastAuthorsSchema(PodcastSchema):
