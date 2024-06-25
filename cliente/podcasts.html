@@ -47,20 +47,20 @@
     <!-- CONTENIDO PRINCIPAL -->
     <div class="container-fluid text-center" id="contenido-principal">
         <div class="row">
-          <!-- LATERAL CATEGORIAS -->
+          <!-- LATERAL PODCASTS -->
           <div class="col-2 texgt-start text-white pt-3" id="columna-lateral-izqda">
             <div class="d-flex flex-column fw-bold text-uppercase">
-                Categorias
-                <div class="btn-group-vertical pt-3" role="group" aria-label="Vertical radio toggle button group" id="categorias-selectores">
-                    <!--CATEGORIAS AUTOMATICAMENTE CARGADAS DESDE APIRESTFUL-->
+                Podcasts
+                <div class="btn-group-vertical pt-3" role="group" aria-label="Vertical radio toggle button group" id="podcasts-selectores">
+                    <!--PODCASTS AUTOMATICAMENTE CARGADAS DESDE APIRESTFUL-->
                 </div>
             </div>
           </div>
-          <!-- LATERAL CATEGORIAS -->
+          <!-- LATERAL PODCASTS -->
           <!-- CONTENIDO CENTRAL -->
           <div class="col-10">
             <div class="pt-3" id="contenido-central">
-              <!--PODCASTS AUTOMATICAMENTE CARGADOS DESDE APIRESTFUL-->
+              <!--AUTORES AUTOMATICAMENTE CARGADOS DESDE APIRESTFUL-->
             </div>
           </div>
           <!-- CONTENIDO CENTRAL -->
@@ -70,8 +70,7 @@
     <script src="./js/app.js"></script>
     <!-- Carga de datos en index.html -->
     <script>
-          getCategories()
-          getPodcasts()
+          getPodcastsSimpleList(true)
     </script>
 </body>
 </html>

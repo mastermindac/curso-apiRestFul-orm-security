@@ -13,15 +13,21 @@ nav{
 .nav-item{
     font-family: denimInk;
 }
+form{
+    font-size: 18px;
+}
 
 #contenido-principal{
     height: 100vh;
     padding-top: 10vh;
 }
 
+#contenido-form{
+    background-color: #ef8d8d;
+}
+
 #columna-lateral-izqda{
     background-color: #ef8d8d;
-    height: 90vh;
 }
 
 .btn-check:checked+.btn{

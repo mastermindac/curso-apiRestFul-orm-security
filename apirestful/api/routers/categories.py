@@ -1,7 +1,8 @@
 from fastapi import Depends, APIRouter, HTTPException
 from sqlalchemy.orm import Session
-from api import categorycontroller, get_db
+from api import categorycontroller, get_db, UserSchema
 from api import CategorySchema, CategoryCreateSchema, CategoryPodcastsSchema
+from api.controllers import securitycontroller
 
 # Enrutador donde se definen los endpoints
 router = APIRouter()
@@ -46,7 +47,8 @@ async def update_category(cat_id: int, category: CategoryCreateSchema, db: Sessi
 
 
 @router.delete("/{cat_id}", response_model=list[CategorySchema])
-async def delete_category(cat_id: int, db: Session = Depends(get_db)):
+async def delete_category(cat_id: int, db: Session = Depends(get_db),
+                            user: UserSchema = Depends(securitycontroller.check_token)):
     categories = categorycontroller.delete_category(db, cat_id)
     if categories == None:
         raise HTTPException(status_code=404, detail="Category not found")

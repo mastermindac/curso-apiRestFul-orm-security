@@ -1,14 +1,24 @@
+from datetime import timedelta
+
 from fastapi import FastAPI
+from fastapi.security import OAuth2PasswordBearer
+
 from api import categoriesrouter, podcastsrouter, authorsrouter
 from api import tags_metadata
+from fastapi import Depends, status, HTTPException
+from sqlalchemy.orm import Session
+from api import get_db, securitycontroller
+from api import UserCreateSchema, UserSchema, UserInSchema
+
+from passlib.context import CryptContext
 from fastapi.middleware.cors import CORSMiddleware
 
-#Origins permitidos politica CORS
+# Origins permitidos politica CORS
 origins = [
     "http://127.0.0.1:5500"
 ]
 
-#Apirestful con FastApi
+# Apirestful con FastApi
 app = FastAPI(
     title="Mastermind Podcast API",
     description="ApiRestFul para la gestión de los podcast realizados por Mastermind",
@@ -32,7 +42,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-#Importacion de las rutas
+# Importacion de las rutas
 app.include_router(
     categoriesrouter,
     tags=["categories"],
@@ -48,6 +58,25 @@ app.include_router(
     tags=["authors"],
     prefix="/authors")
 
-@app.get("/")
-async def root():
-    return {"message": "Hola Pakito"}
+# Security
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+ACCESS_TOKEN_EXPIRE_MINUTES = 30
+
+@app.post("/signup/", response_model=UserSchema)
+async def signup(user: UserCreateSchema, db: Session = Depends(get_db)):
+    user.password=pwd_context.hash(user.password)
+    return securitycontroller.write_user(db,user)
+
+@app.post("/signin/")
+async def login(user: UserInSchema, db: Session = Depends(get_db)):
+    user = securitycontroller.authenticate_user(db, user.username, user.password, pwd_context)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"}
+        )
+    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    return {"access_token": securitycontroller.create_access_token(
+        data={"sub": user.username}, expires_delta=access_token_expires
+    ), "token_type": "bearer"}

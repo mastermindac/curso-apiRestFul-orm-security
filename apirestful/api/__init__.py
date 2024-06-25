@@ -9,18 +9,21 @@ from api.database.database import podcast_authors
 from api.models.categorymodel import Category as CategoryModel
 from api.models.podcastmodel import Podcast as PodcastModel
 from api.models.authormodel import Author as AuthorModel
+from api.models.usermodel import User as UserModel
 
 # Schemas Pydantic
 from api.schemas.authorschema import AuthorSchema, AuthorCreateSchema, AuthorUpdateSchema
 from api.schemas.podcastschema import PodcastSchema, PodcastCreateSchema, PodcastUpdateSchema, PodcastAuthorCreateSchema
 from api.schemas.podcastschema import PodcastAuthorsSchema, AuthorPodcastsSchema
 from api.schemas.categoryschema import CategorySchema, CategoryPodcastsSchema, CategoryCreateSchema
+from api.schemas.userschema import UserSchema,UserCreateSchema, UserBaseSchema, UserInSchema
 
 
 # Controladores
 from api.controllers import categorycontroller
 from api.controllers import podcastcontroller
 from api.controllers import authorcontroller
+from api.controllers import securitycontroller
 
 # Rutas
 from api.routers.categories import router as categoriesrouter
